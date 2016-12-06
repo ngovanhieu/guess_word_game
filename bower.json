@@ -1,0 +1,14 @@
+{
+  "name": "guess_word_game",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/ngovanhieu/guess_word_game",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
