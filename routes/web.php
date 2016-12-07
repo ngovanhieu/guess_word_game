@@ -14,3 +14,10 @@
 Route::get('/', 'HomeController@index');
 
 Auth::routes();
+
+//User features
+Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
+    Route::resource('users', 'UsersController', ['only'=> [
+        'show', 'update', 'edit',
+    ]]);
+});
