@@ -7,10 +7,10 @@ return [
         'email' => 'Email',
         'time-joined' => 'Joined date',
         'leaderbroad' => 'LeaderBroad',
+        'edit-permission' => 'You can not edit that user!',
     ],
     'buttons' => [
         'update' => 'Update',
         'change-password' => 'Change Password',
     ],
-    'placeholder' => [],
 ];
