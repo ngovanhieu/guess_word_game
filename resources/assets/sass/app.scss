@@ -7,3 +7,16 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+//Profile
+.panel-default {
+    padding: 15px;
+}
+.profile-box .well {
+    height: 320px;
+    padding: 15px;
+}
+.avatar {
+    width: 200px;
+    height: 200px;
+}

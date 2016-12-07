@@ -54,6 +54,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        {{ link_to_action('Web\UsersController@show', trans('front-end/profile/show.labels.profile'), Auth::user()->id, null) }}
+                                    </li>
+                                    <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
