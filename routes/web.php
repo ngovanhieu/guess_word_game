@@ -28,3 +28,9 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
         'show', 'update', 'edit',
     ]]);
 });
+
+//Admin features
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('/', 'HomeController@index');
+    Route::resource('users', 'UsersController');
+});

@@ -53,6 +53,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    @can('accessAdmin', User::class)
+                                        <li>
+                                            {{ link_to_action('Admin\HomeController@index', trans('admin/home.buttons.admin-cp') , null, null) }}
+                                        </li>
+                                    @endcan
                                     <li>
                                         {{ link_to_action('Web\UsersController@show', trans('front-end/profile/show.labels.profile'), Auth::user()->id, null) }}
                                     </li>
