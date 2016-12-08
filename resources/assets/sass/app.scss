@@ -9,15 +9,26 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 //Profile
-.panel-default {
-    padding: 15px;
-}
 .profile-box .well {
-    height: 320px;
-    padding: 15px;
+    .well{
+        height: 320px;
+        padding: 15px;
+    }
 }
 .avatar {
     width: 200px;
     height: 200px;
     border-radius: 30px;
+}
+
+// Home
+.panel-default {
+    padding: 15px;
+}
+.room-list {
+    .well{
+        height: 300px;
+        overflow-y: scroll;
+        padding: 15px;
+    }
 }

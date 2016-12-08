@@ -19,6 +19,9 @@ elixir(mix => {
             'resources/assets/images/*',
             'public/images/'
         )
+        .scripts([
+            'chart.js/dist/Chart.js'
+       	], 'public/js/vendor.js', './node_modules/')
         .sass('error.scss')
         .webpack('app.js');
 });

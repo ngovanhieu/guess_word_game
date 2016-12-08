@@ -79,6 +79,7 @@
     </div>
 
     <!-- Scripts -->
-    {!! HTML::script(elixir('js/app.js')); !!}
+    {!! Html::script(elixir('js/app.js')) !!}
+    {!! Html::script(elixir('js/vendor.js')) !!}
 </body>
 </html>
