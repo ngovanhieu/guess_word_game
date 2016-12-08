@@ -20,7 +20,9 @@ class UsersController extends BaseController
      */
     public function index()
     {
-        //
+        $this->viewData['users'] = $this->repository->paginate();
+
+        return view('admin.users.index', $this->viewData);
     }
 
     /**
