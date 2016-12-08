@@ -67,4 +67,6 @@ interface RepositoryInterface
      * @return int
      */
     public function delete($id);
+
+    public function update(array $data, $id, $withSoftDeletes = false);
 }

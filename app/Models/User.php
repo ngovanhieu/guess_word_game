@@ -71,4 +71,30 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    /**
+     * Check if current user is admin.
+     *
+     * @param  void
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->role === config('user.role.admin');
+    }
+
+    public function isCurrent()
+    {
+        return auth()->check() && auth()->id() === $this->id;
+    }
+
+    public function isMember()
+    {
+        return $this->role === config('user.role.member');
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? config('user.avatar.upload_path') . $this->id . '/' . $this->avatar : null;
+    }
 }

@@ -164,15 +164,27 @@ abstract class BaseRepository implements RepositoryInterface
      * @param array $input
      * @param       $id
      *
-     * @return void
+     * @return bool
      */
-    public function update(array $input, $id)
+    public function update(array $data, $id, $withSoftDeletes = false)
     {
-        $model = $this->model->findOrFail($id);
-        $model->fill($input);
-        $model->save();
+        try {
 
-        return $this;
+            if ($withSoftDeletes) {
+                $this->newQuery()->eagerLoadTrashed();
+            }
+
+            $model = $this->model->find($id);
+            $fillable = $this->model->getFillable();
+            $data = array_only($data, $fillable);
+            $model->fill($data);
+
+            return $model->save();
+        } catch (Exception $e) {
+            Log::error($e);
+
+            throw $e;
+        }
     }
     
     /**

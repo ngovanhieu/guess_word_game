@@ -25,18 +25,20 @@
                     </label>
                 </div>
             </div>
+            @if ($user->isCurrent())
             <div class="form-group">
                 <a href="{{ action('Web\UsersController@edit', ['id' => $user->id]) }}">
                     <button class="btn btn-success" type="button">
                         {{ trans('front-end/profile/show.buttons.update') }}
                     </button>
                 </a>
-                <a href="#">
+                <a href="{{ action('Web\UsersController@editPassword') }}">
                     <button class="btn btn-primary" type="button">
                         {{ trans('front-end/profile/show.buttons.change-password') }}
                     </button>
                 </a>
             </div>
+            @endif
         </div>
     </div>
     <div class="col-md-8">

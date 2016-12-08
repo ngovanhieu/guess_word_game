@@ -5,6 +5,9 @@ return [
         'member' => 0,
         'admin' => 1,
     ],
+    'avatar' => [
+         'upload_path' => 'images/uploads/avatars/',
+    ],
     'password' => [
         'default' => '123456',
     ],
