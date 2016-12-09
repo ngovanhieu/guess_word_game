@@ -25,3 +25,13 @@ function uploadImage($image, $path, $delete = false) {
 
     return null;
 }
+
+//Render select
+function getOptions($options) {
+    $results = [];
+    foreach (config($options) as $option) {
+        $results[$option] = trans($options . '.' . $option);
+    }
+
+    return $results;
+}
