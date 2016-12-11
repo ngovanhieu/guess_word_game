@@ -21,7 +21,7 @@ class RoomsController extends BaseController
      */
     public function index()
     {
-        $this->viewData['rooms'] = $this->repository->paginate(config('room.list-limit'));
+        $this->viewData['rooms'] = $this->repository->paginate();
 
         return view('front-end.room.index', $this->viewData);
     }

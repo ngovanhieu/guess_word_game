@@ -23,8 +23,8 @@
                             {{ $word->content }}
                         </a>
                     </td>
-                    <td>{{ date_format($word->created_at, "Y/m/d - h:i") }}</td>
-                    <td>{{ date_format($word->updated_at, "Y/m/d - h:i") }}</td>
+                    <td>{{ $word->created_at }}</td>
+                    <td>{{ $word->updated_at }}</td>
                     <td>
                         {!! Form::open(['action' => ['Admin\WordsController@destroy', $word->id], 'method' =>  'DELETE']) !!}
                         <div class="btn-group-sm">

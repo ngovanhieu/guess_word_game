@@ -65,7 +65,9 @@ class WordsController extends BaseController
      */
     public function show($id)
     {
-        //
+        $this->viewData['word'] = $this->repository->find($id);
+
+        return view('admin.words.show', $this->viewData);
     }
 
     /**
@@ -76,7 +78,9 @@ class WordsController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $this->viewData['word'] = $this->repository->find($id);
+
+        return view('admin.words.edit', $this->viewData);
     }
 
     /**
@@ -86,9 +90,21 @@ class WordsController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(WordsRequest $request, $id)
     {
-        //
+        try {
+            $dataUpdate = $request->only('content');
+            $result = $this->repository->update($dataUpdate, $id);
+
+            if ($result) {
+                return redirect()->action('Admin\WordsController@show', ['id' => $id])
+                    ->with('status', trans('admin/words/edit.update.success'));
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+        }
+
+        return back()->withErrors(trans('admin/words/edit.update.failed'));
     }
 
     /**
