@@ -76,4 +76,14 @@ $(document).ready(function() {
             $(this).hide(400);
         });
     });
+
+    //Join button
+    $('.room-item').on('click', function () {
+        $('#join-button').attr('href', laroute.route('rooms.show', { room: $(this).data('room-id') }));
+    });
+
+    //Init wPaint
+    if($('#wPaint').length > 0) {
+        $('#wPaint').wPaint();
+    }
 })
