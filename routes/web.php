@@ -22,7 +22,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
     Route::get('users/change-password', 'UsersController@editPassword');
     Route::put('users/change-password', 'UsersController@updatePassword');
     Route::resource('rooms', 'RoomsController', ['only' => [
-        'index', 'store', 'update',
+        'index', 'store', 'show',
     ]]);
     Route::resource('users', 'UsersController', ['only'=> [
         'show', 'update', 'edit',

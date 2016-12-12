@@ -20,7 +20,8 @@ elixir(mix => {
             'public/images/'
         )
         .scripts([
-            'chart.js/dist/Chart.js'
+            'chart.js/dist/Chart.js',
+            './resources/assets/js/laroute.js'
        	], 'public/js/vendor.js', './node_modules/')
         .sass('error.scss')
         .webpack('app.js');

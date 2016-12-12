@@ -1,6 +1,7 @@
 storage/*
 vendor/
 node_modules/
+resources/assets/js/laroute.js
 
 # Laravel 4 specific
 bootstrap/compiled.php
