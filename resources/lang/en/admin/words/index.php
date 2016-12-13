@@ -4,6 +4,7 @@ return [
     'labels' => [
         'list-word' => 'List Word',
         'content' => 'Content',
+        'status' => 'Status',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
         'action' => 'Action',
@@ -11,8 +12,15 @@ return [
         'empty-list' => 'There is not any items, you can create the first one.',
     ],
     'buttons' => [
-        'edit' => 'Edit',
-        'delete' => 'Delete',
+        'update' => 'Update',
         'search' => 'Search',
+    ],
+    'status' => [
+        0 => 'Active',
+        1 => 'InActive',
+    ],
+    'update' => [
+        'success' => 'Update successfully!',
+        'failed' => 'Update failed!',
     ],
 ];

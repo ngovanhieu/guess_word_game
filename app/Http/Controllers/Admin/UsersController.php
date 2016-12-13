@@ -10,8 +10,9 @@ use App\Repositories\Contracts\UserRepositoryInterface as UserRepository;
 
 class UsersController extends BaseController
 {
-    public function __construct(UserRepository $userRepository) {
-        $this->repository = $userRepository;
+    public function __construct(UserRepository $userRepository) 
+    {
+        parent::__construct($userRepository);
     }
 
     /**

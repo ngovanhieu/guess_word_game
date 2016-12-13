@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\WordsRequest;
+use App\Http\Requests\StoreWordsRequest;
+use App\Http\Requests\UpdateWordsRequest;
 use App\Repositories\Contracts\WordRepositoryInterface as WordRepository;
 
 class WordsController extends BaseController
 {
-    protected $dataSelect = ["id", "content", "created_at", "updated_at"];
+    protected $dataSelect = ["id", "content", "status", "created_at", "updated_at"];
 
-    public function __construct(WordRepository $wordRepository) {
-        $this->repository = $wordRepository;
+    public function __construct(WordRepository $wordRepository) 
+    {
+        parent::__construct($wordRepository);
     }
 
     /**
@@ -44,9 +46,9 @@ class WordsController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(WordsRequest $request)
+    public function store(StoreWordsRequest $request)
     {
-        $wordData = $request->only('content');
+        $wordData = $request->only('content', 'status');
         $result = $this->repository->create($wordData);
 
         if (!$result) {
@@ -71,50 +73,26 @@ class WordsController extends BaseController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $this->viewData['word'] = $this->repository->find($id);
-
-        return view('admin.words.edit', $this->viewData);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(WordsRequest $request, $id)
+    public function update(UpdateWordsRequest $request, $id)
     {
         try {
-            $dataUpdate = $request->only('content');
+            $dataUpdate = $request->only('status');
             $result = $this->repository->update($dataUpdate, $id);
 
             if ($result) {
-                return redirect()->action('Admin\WordsController@show', ['id' => $id])
-                    ->with('status', trans('admin/words/edit.update.success'));
+                return redirect()->action('Admin\WordsController@index')
+                    ->with('status', trans('admin/words/index.update.success'));
             }
         } catch (Exception $e) {
             Log::error($e);
         }
 
-        return back()->withErrors(trans('admin/words/edit.update.failed'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return back()->withErrors(trans('admin/words/index.update.failed'));
     }
 }

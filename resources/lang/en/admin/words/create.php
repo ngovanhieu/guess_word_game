@@ -4,6 +4,7 @@ return [
     'labels' => [
         'create-word' => 'Create New Word',
         'content' => 'Content',
+        'status' => 'Status',
     ],
     'buttons' => [
         'create' => 'Create',

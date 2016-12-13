@@ -8,14 +8,16 @@
         <div class="panel-body">
             @if (count($words))
             <table class="table table-bordered">
-                <tr>
+                <tr class="success">
                     <td>{{ trans('admin/words/index.labels.id') }}</td>
                     <td>{{ trans('admin/words/index.labels.content') }}</td>
+                    <td>{{ trans('admin/words/index.labels.status') }}</td>
                     <td>{{ trans('admin/words/index.labels.created_at') }}</td>
                     <td>{{ trans('admin/words/index.labels.updated_at') }}</td>
                     <td>{{ trans('admin/words/index.labels.action') }}</td>
                 </tr>
                 @foreach ($words as $word)
+                {!! Form::open(['action' => ['Admin\WordsController@update', $word->id], 'method' =>  'PATCH']) !!}
                 <tr>
                     <td>{{ $word->id }}</td>
                     <td>
@@ -23,19 +25,17 @@
                             {{ $word->content }}
                         </a>
                     </td>
+                    <td>{!! Form::select('status', getOptions('options.word-status'), $word->status,
+                        ['class' => 'form-control']) !!}</td>
                     <td>{{ $word->created_at }}</td>
                     <td>{{ $word->updated_at }}</td>
                     <td>
-                        {!! Form::open(['action' => ['Admin\WordsController@destroy', $word->id], 'method' =>  'DELETE']) !!}
                         <div class="btn-group-sm">
-                            <a href="{{ action('Admin\WordsController@edit', ['id' => $word->id]) }}" class="btn btn-warning">
-                                {{ trans('admin/words/index.buttons.edit') }}
-                            </a>
-                            {!! Form::submit(trans('admin/words/index.buttons.delete'), ['class' => 'btn btn-danger']) !!}
+                            {!! Form::submit(trans('admin/words/index.buttons.update'), ['class' => 'btn btn-primary']) !!}
                         </div>
-                        {!! Form::close() !!}
                     </td>
                 </tr>
+                {!! Form::close() !!}
                 @endforeach
             </table>
             {!! $words->links() !!}

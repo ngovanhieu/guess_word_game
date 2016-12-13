@@ -23,7 +23,7 @@ class Word extends Model
      * @var array
      */
     protected $fillable = [
-        'content',
+        'content', 'status',
     ];
 
     /**

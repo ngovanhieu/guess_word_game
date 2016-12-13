@@ -35,5 +35,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
 Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'HomeController@index');
     Route::resource('users', 'UsersController');
-    Route::resource('words', 'WordsController');
+    Route::resource('words', 'WordsController', ['except' => [
+        'delete', 'edit',
+    ]]);
 });

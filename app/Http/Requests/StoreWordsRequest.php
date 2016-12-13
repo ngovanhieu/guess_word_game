@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class WordsRequest extends FormRequest
+class StoreWordsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,8 @@ class WordsRequest extends FormRequest
             'content' => [
                 'required',
                 Rule::unique('words'),
-            ]
+            ],
+            'status' => 'in:' . config('options.word-status.active') . ',' . config('options.word-status.inactive'),
         ];
     }
 }

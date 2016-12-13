@@ -10,10 +10,10 @@ abstract class BaseController extends Controller
     /**
      * @var viewData
      */
-    private $viewData;
+    protected $viewData;
 
     /**
      * @var repository
      */
-    private $repository;
+    protected $repository;
 }
