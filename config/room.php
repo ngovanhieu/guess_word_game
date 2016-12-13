@@ -9,4 +9,10 @@ return [
         'playing' =>  3,
         'closed' =>  4,
     ],
+    'state' =>  [
+        'player-1-joined' => 1,
+        'player-2-joined' => 2,
+        'player-1-ready' => 4,
+        'player-2-ready' => 8,
+    ]
 ];
