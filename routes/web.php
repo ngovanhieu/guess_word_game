@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index');
 Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
     Route::get('users/change-password', 'UsersController@editPassword');
     Route::put('users/change-password', 'UsersController@updatePassword');
+
+    Route::get('rooms/join/{id}', 'RoomsController@join')->name('rooms.join');
     Route::resource('rooms', 'RoomsController', ['only' => [
         'index', 'store', 'show',
     ]]);

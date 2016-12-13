@@ -79,7 +79,7 @@ $(document).ready(function() {
 
     //Join button
     $('.room-item').on('click', function () {
-        $('#join-button').attr('href', laroute.route('rooms.show', { room: $(this).data('room-id') }));
+        $('#join-button').attr('href', laroute.route('rooms.join', { id: $(this).data('room-id') }));
     });
 
     //Init wPaint

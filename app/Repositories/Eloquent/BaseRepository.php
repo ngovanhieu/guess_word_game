@@ -137,9 +137,7 @@ abstract class BaseRepository implements RepositoryInterface
             list($value, $operator) = [$operator, '='];
         }
 
-        $this->where[] = [$conditions, $operator, $value];
-
-        return $this;
+        return $this->model->where($conditions, $operator, $value);
     }
     
     /**

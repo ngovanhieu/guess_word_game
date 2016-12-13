@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Room',
-    'empty' => 'There is no available rooms, You can create the first one',
+    'empty' => 'There is no available rooms, You can create the first one.',
     'list' => 'List',
     'leaderboard' =>  'Leaderboard',
     'buttons' => [
@@ -24,7 +24,15 @@ return [
         4 =>  'Closed',
     ],
     'create' => [
-        'success' => 'You have created the room successfully',
-        'failed' => 'Can not create new room, please try again',
+        'success' => 'You have created the room successfully.',
+        'failed' => 'Can not create new room, please try again.',
+    ],
+    'join' => [
+        'success' => 'Click ready button when you are ready to play.',
+        'failed' => 'There is something wrong, you can not join this room.',
+        'exception' => [
+            'unavailable' => 'You can not join this room.',
+            'database' => 'A system error has occured.'
+        ]
     ],
 ];
