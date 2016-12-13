@@ -14,5 +14,9 @@ return [
         'player-2-joined' => 2,
         'player-1-ready' => 4,
         'player-2-ready' => 8,
-    ]
+    ],
+    'is_correct' => [
+        'true' => 1,
+        'false' => 0,
+    ],
 ];

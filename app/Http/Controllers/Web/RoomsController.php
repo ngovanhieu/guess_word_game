@@ -14,8 +14,8 @@ use DB;
 class RoomsController extends BaseController
 {
     public function __construct(RoomRepository $roomRepository) {
- 
-        $this->repository = $roomRepository;
+        parent::__construct($roomRepository);
+        $this->viewName = 'room';
         $this->viewData['title'] = trans('front-end/room.title');
     }
 
@@ -73,7 +73,9 @@ class RoomsController extends BaseController
      */
     public function show($id)
     {
-        //
+        parent::show($id);
+
+        return $this->viewRender();
     }
 
     /**
