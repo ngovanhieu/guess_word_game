@@ -28,6 +28,16 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">
+                                {{ trans('admin/words/show.labels.status') }}:
+                            </label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">
+                                    {{ trans('admin/words/show.status.' . $word->status) }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
                                 {{ trans('admin/words/show.labels.created_at') }}:
                             </label>
                              <div class="col-sm-10">
@@ -36,17 +46,10 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">
-                                {{ trans('admin/words/show.labels.updated_at') }}
+                                {{ trans('admin/words/show.labels.updated_at') }}:
                             </label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">{{ $word->updated_at }}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-10">
-                                <a href="{{ action('Admin\WordsController@edit', ['id' => $word->id]) }}" class="btn btn-success">  
-                                    {{ trans('admin/words/show.buttons.update') }}
-                                </a>
                             </div>
                         </div>
                     </form>
