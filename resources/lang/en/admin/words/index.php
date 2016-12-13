@@ -9,7 +9,7 @@ return [
         'updated_at' => 'Updated at',
         'action' => 'Action',
         'id' => 'ID',
-        'empty-list' => 'There is not any items, you can create the first one.',
+        'empty-list' => 'There is not any items!',
     ],
     'buttons' => [
         'update' => 'Update',
@@ -22,5 +22,8 @@ return [
     'update' => [
         'success' => 'Update successfully!',
         'failed' => 'Update failed!',
+    ],
+    'placeholders' => [
+        'content-id' => 'Key word for content or id',
     ],
 ];

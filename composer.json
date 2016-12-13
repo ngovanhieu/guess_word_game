@@ -10,7 +10,9 @@
         "barryvdh/laravel-debugbar": "^2.3",
         "laravelcollective/html": "^5.3.0",
         "lord/laroute" : "2.*",
-        "arrilot/laravel-widgets": "^3.6"
+        "arrilot/laravel-widgets": "^3.6",
+        "doctrine/dbal": "^2.5",
+        "kyslik/column-sortable": "~5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
