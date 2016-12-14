@@ -33,10 +33,18 @@
     }
 }
 
-.sidebar li ul {
-    display: none;
-}
-
 .sidebar {
     padding: 0px;
+    li {
+        ul {
+            display: none;
+        }
+    }
+}
+#wPaint {
+    position:relative;
+    width:500px;
+    height:200px;
+    background-color:#7a7a7a;
+    margin:20px auto;
 }
