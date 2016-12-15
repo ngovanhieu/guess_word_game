@@ -1,5 +1,6 @@
 @extends('front-end.master')
 @section('subview')
+    <div class="alert alert-danger ajax-error"></div>
     <div class="col-md-4">
         <div class="panel panel-default room-list">
             <h3><strong>{{ $title }}: </strong>{{ trans('front-end/room.info') }}</h3>
@@ -11,12 +12,16 @@
                     </a>
                     <a href="#" class="list-group-item drawer">
                         <strong>{{ trans('front-end/room.player') }}: 
-                            <span class="player-name">{{ $data['info']->drawer->name }}</span>
+                            <span class="player-name">
+                                {{ isset($data['info']->drawer->name) ? $data['info']->drawer->name : '' }}
+                            </span>
                         </strong>
                     </a>
                     <a href="#" class="list-group-item guesser">
                         <strong>{{ trans('front-end/room.player') }}: 
-                            <span class="player-name">{{ $data['info']->guesser->name }}</span>
+                            <span class="player-name">
+                                {{ isset($data['info']->guesser->name) ? $data['info']->guesser->name : '' }}
+                            </span>
                         </strong>
                     </a>
                 </div>
@@ -99,4 +104,8 @@
             @include('layouts.includes.playpanel')
         </div>
     </div>
+    <script type="text/javascript">
+        var roomId = "{{ $data['room']->id }}";
+        var userRole = "{{ $data['info']->isDrawer() ? 'drawer' : 'guesser' }}";
+    </script>
 @endsection

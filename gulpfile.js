@@ -34,6 +34,7 @@ elixir(mix => {
             'wPaint/plugins/shapes/wPaint.menu.main.shapes.min.js',
             'wPaint/plugins/file/wPaint.menu.main.file.min.js',
             'chart.js/dist/Chart.js',
+            'socket.io-client/dist/socket.io.min.js',
             './resources/assets/js/laroute.js'
        	], 'public/js/vendor.js', './node_modules/')
         .styles([

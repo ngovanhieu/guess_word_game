@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./realtime');
 
 $(document).ready(function() {
     //User Chart

@@ -136,4 +136,29 @@ class RoomsController extends BaseController
                 ->withErrors($e->getMessage());
         }
     }
+
+    /**
+     * Refresh the specified room.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function refresh(Request $request)
+    {   
+        $dataResponse['status'] = 500; //System error
+
+        try {
+            $id = $request->id;
+            $data = $this->repository->show($id);
+
+            if ($data) {
+                $dataResponse['status'] = 200; //OK
+                $dataResponse['data'] = $data;
+            }
+        } catch (Exception  $e){
+            Log::debug($e);
+        }
+        
+        return response()->json($dataResponse);
+    }
 }
