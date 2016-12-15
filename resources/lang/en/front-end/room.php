@@ -14,6 +14,7 @@ return [
         'submit' => 'Submit',
         'new-round' => 'New Round',
         'finish' => 'Finish',
+        'playing' => 'Playing',
     ],
     'description' => 'Description',
     'status' => [
@@ -35,6 +36,11 @@ return [
             'database' => 'A system error has occured.'
         ]
     ],
+    'show' => [
+        'exception' => [
+            'permission' => 'You do not have the permission to view this room',
+        ],
+    ],
     'waiting' => 'Please wait for a moment',
     'player' => 'Player',
     'history' => 'History',
@@ -53,4 +59,5 @@ return [
         0 => 'The answer is wrong, try hard next time',
         1 => 'Congratulation !!!',
     ],
+    'error-message' => 'Can not fetch data, there are something wrong',
 ];

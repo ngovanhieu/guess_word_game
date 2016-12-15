@@ -15,6 +15,7 @@
                             <span class="player-name">
                                 {{ isset($data['info']->drawer->name) ? $data['info']->drawer->name : '' }}
                             </span>
+                            <span class="is-ready"></span>
                         </strong>
                     </a>
                     <a href="#" class="list-group-item guesser">
@@ -22,6 +23,7 @@
                             <span class="player-name">
                                 {{ isset($data['info']->guesser->name) ? $data['info']->guesser->name : '' }}
                             </span>
+                            <span class="is-ready"></span>
                         </strong>
                     </a>
                 </div>
@@ -78,22 +80,16 @@
 
             <div class="action-room">
                 <div class="form-group clearfix">
-                    @if (
-                        ($data['room']->status == config('room.status.waiting')) || 
-                        ($data['room']->status == config('room.status.full'))
-                    )
-                    <a id="quit-button" class="btn btn-danger" href="javascript:;">
-                        {{ trans('front-end/room.buttons.quit') }}
-                    </a>
-                    <a id="ready-button" class="btn btn-success" href="javascript:;">
-                        {{ trans('front-end/room.buttons.ready') }}
-                    </a>
-                    <input type="hidden" name="ready" id="ready-status" value="0">
-                    @elseif ($data['room']->status == config('room.status.playing'))
-                    <a id="finish-button" class="btn btn-warning" href="javascript:;">
-                        {{ trans('front-end/room.buttons.finish') }}
-                    </a> 
-                    @endif
+                    <!-- render playing panel depend on current round and current room -->
+                    @widget('roomInfoPanel', [], $data['room']->status)
+                    <div class="ready-block">
+                        @if($data['room']->status == config('room.status.full'))
+                            <a id="ready-button" class="btn btn-success" href="javascript:;">
+                                {{ trans('front-end/room.buttons.ready') }}
+                            </a>
+                            <input type="hidden" name="ready" id="ready-status" value="0">
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,11 +97,33 @@
     <div class="col-md-8">
         <div class="panel panel-default clearfix">
             <h3>{{ trans('front-end/room.panel') }}</h3>
-            @include('layouts.includes.playpanel')
+            <h4 id="word">
+                {{
+                    $data['current_round']->isDrawer() ?
+                    $data['current_round']->word_id ?
+                    $data['current_round']->word->content : '' : ''
+                }}
+            </h4>
+            <div id="play-panel">
+                @include('layouts.includes.playpanel')
+            </div>
         </div>
     </div>
+
+@endsection
+@push('script')
     <script type="text/javascript">
         var roomId = "{{ $data['room']->id }}";
         var userRole = "{{ $data['info']->isDrawer() ? 'drawer' : 'guesser' }}";
+        var readyButton = "{{ trans('front-end/room.buttons.ready') }}";
+        var playingButton = "{{ trans('front-end/room.buttons.playing') }}";
+        var finishButton = "{{ trans('front-end/room.buttons.finish') }}";
+        var userId = "{{ Auth::user()->id }}";
+        var sendButton = "{{ trans('front-end/room.buttons.send') }}";
+        var guesserWaiting = "{{ trans('front-end/room.guesser.waiting') }}";
+        var roomStatus = "{{ $data['room']->status }}";
+        var playingStatus = "{{ config('room.status.playing') }}";
+        var fullStatus = "{{ config('room.status.full') }}";
+        var errorMessage = "{{ trans('front-end/room.error-message') }}"
     </script>
-@endsection
+@endpush

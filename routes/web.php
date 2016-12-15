@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
 
     Route::get('rooms/join/{id}', 'RoomsController@join')->name('rooms.join');
     Route::post('rooms/refresh', 'RoomsController@refresh')->name('rooms.refresh');
+    Route::post('rooms/ready', 'RoomsController@updateReadyState')->name('rooms.ready');
     Route::resource('rooms', 'RoomsController', ['only' => [
         'index', 'store', 'show',
     ]]);
@@ -43,3 +44,4 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admi
 
 //API for nodejs
 Route::get('rooms/reset-state/{id}', 'Web\RoomsController@resetState');
+Route::get('rooms/begin-play/{id}', 'Web\RoomsController@beginPlay');
