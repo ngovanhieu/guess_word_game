@@ -105,6 +105,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         
         $data['info'] = $data['room']->results->first()->load('drawer', 'guesser');
         $data['current_round'] = $data['room']->results->last();
+        $data['drawer'] = $data['info']->drawer;
+        $data['guesser'] = $data['info']->guesser;
         
         return $data;
     }
