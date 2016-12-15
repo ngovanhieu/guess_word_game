@@ -19,12 +19,20 @@ function handler (req, res) {
 }
 
 io.sockets.on('connection', function(socket) {
-    var roomName;
+    var roomId;
+
     socket.on('joined', function (room) {
-        roomName = room;
+        roomId = room;
         socket.join(room);
         io.sockets.to(room).emit('new-player-connected');
-        var pattern = /-(\d+)/;
-        roomId = pattern.exec(roomName);
+    });
+
+    //If a user disconnect (quit, internet, close browser,..) when in the waiting room, we 'll reset ready state
+    socket.on('disconnect', function () {
+        option = {
+            uri: 'http://gwg.app/rooms/reset-state/' + roomId,
+            method: "GET",
+        }
+        request(option);
     });
 });
