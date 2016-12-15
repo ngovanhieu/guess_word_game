@@ -170,6 +170,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
         Arrilot\Widgets\ServiceProvider::class,
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 
         //
 

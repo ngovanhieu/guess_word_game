@@ -16,4 +16,22 @@ class WordRepository extends BaseRepository implements WordRepositoryInterface
     {
         return 'App\Models\Word';
     }
+
+    public function searchWord($input)
+    {
+        $query = $this->model->newQuery();
+
+        if ($input['key-word'] != '') {
+            $query->where(function($query) use ($input) {
+                $query->where('content', 'like', '%' . $input['key-word'] . '%')
+                    ->orWhere('id', 'like', '%' . $input['key-word'] . '%');
+            });
+        }
+
+        if ($input['status'] != '') {
+            $query->where('status', $input['status']);
+        }
+
+        return $query;
+    }
 }

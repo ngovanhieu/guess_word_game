@@ -10,8 +10,6 @@ use App\Repositories\Contracts\WordRepositoryInterface as WordRepository;
 
 class WordsController extends BaseController
 {
-    protected $dataSelect = ["id", "content", "status", "created_at", "updated_at"];
-
     public function __construct(WordRepository $wordRepository) 
     {
         parent::__construct($wordRepository);
@@ -22,10 +20,13 @@ class WordsController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->viewData['words'] = $this->repository
-            ->paginate($this->dataSelect);
+        $input = $request->only('status', 'key-word');
+        $this->viewData['words'] = $this->repository->searchWord($input)->sortable()->paginate();
+        //send back filter choice
+        $this->viewData['key_word'] = $input['key-word'];
+        $this->viewData['status'] = $input['status'];
 
         return view('admin.words.index', $this->viewData);
     }
