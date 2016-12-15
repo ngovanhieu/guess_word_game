@@ -110,4 +110,28 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         
         return $data;
     }
+
+    /**
+     * Reset state a room
+     *
+     * @param int $id
+     *
+     * @return mixed
+     */
+    public function resetState($id)
+    {   
+        $room = $this->model->findOrFail($id);
+        if ($room->status == config('room.status.playing') || $room->status == config('room.status.closed')) {
+            return;
+        }
+
+        $data['state'] = 
+            $room->state & config('room.state.player-1-ready') ?
+            $room->state ^ config('room.state.player-1-ready') : $room->state;
+
+        $room->forceFill($data);
+        $room->save();
+
+        return $room->state;
+    }
 }

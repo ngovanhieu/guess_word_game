@@ -40,3 +40,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admi
         'delete', 'edit',
     ]]);
 });
+
+//API for nodejs
+Route::get('rooms/reset-state/{id}', 'Web\RoomsController@resetState');

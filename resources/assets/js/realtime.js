@@ -70,9 +70,8 @@
         });
 
         //Joined a room
-        var room = "room-" + roomId;
         socket.on('connect', function (data) {
-            socket.emit('joined', room);
+            socket.emit('joined', roomId);
         });
 
         //Get new players data when someone joining the room
