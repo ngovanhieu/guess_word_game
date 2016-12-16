@@ -87,4 +87,9 @@ $(document).ready(function() {
     if($('#wPaint').length > 0) {
         $('#wPaint').wPaint();
     }
+
+    //Status
+    if (roomStatus == 3) {
+        $('.is-ready').html('<button class="btn btn-success btn-sm pull-right">' + playingButton + '</button>');
+    }
 })

@@ -63,7 +63,14 @@ class RoomsController extends BaseController
      */
     public function show($id)
     {
-        parent::show($id);
+        try {
+            parent::show($id);
+        } catch (RoomException $e) {
+            Log::debug($e);
+            
+            return redirect()->action('Web\RoomsController@index')
+                ->withErrors($e->getMessage());
+        }
 
         return $this->viewRender();
     }
@@ -128,5 +135,52 @@ class RoomsController extends BaseController
     public function resetState($id)
     {   
         return $this->repository->resetState($id);
+    }
+
+    /**
+     * Update ready status of players in the specified room.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateReadyState(Request $request)
+    {
+        $dataResponse['status'] = 500; //System error
+        DB::beginTransaction();
+        try {
+            $input = $request->only('id', 'ready');
+            $state = $this->repository->updateReadyState($input);
+            $dataResponse['status'] = 200; //OK
+            $dataResponse['state'] = $state;
+            DB::commit();
+        } catch (Exception $e) {
+            Log::debug($e);
+            DB::rollback();
+        }
+
+        return response()->json($dataResponse);
+    }
+
+    /**
+     * Begin to play in the specified room.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function beginPlay($id)
+    {
+        $dataResponse['status'] = 500; //System error
+        DB::beginTransaction();
+        try {
+            $data = $this->repository->beginPlay($id);
+            $dataResponse['status'] = 200; //OK
+            $dataResponse['data'] = $data;
+            DB::commit();
+        } catch (RoomException $e) {
+            Log::debug($e);
+            DB::rollback();
+        }
+
+        return response()->json($dataResponse);
     }
 }
