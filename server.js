@@ -70,4 +70,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('answer-sent', function (data) {
         io.sockets.to(roomId).emit('render-result', data);
     });
+    
+    //When the drawer begin a new round, we'll get new round for the room
+    socket.on('new-round', function () {
+        io.sockets.to(roomId).emit('get-new-round');
+    });
 });
