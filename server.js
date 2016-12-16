@@ -56,4 +56,8 @@ io.sockets.on('connection', function(socket) {
     socket.on('quit', function () {
         io.sockets.to(roomId).emit('a-player-quit');
     });
+
+    socket.on('user-send-message', function(data) {
+        io.sockets.to(roomId).emit('get-new-message', data);
+    });
 });
