@@ -67,7 +67,7 @@ class RoomsController extends BaseController
             parent::show($id);
         } catch (RoomException $e) {
             Log::debug($e);
-            
+
             return redirect()->action('Web\RoomsController@index')
                 ->withErrors($e->getMessage());
         }
@@ -177,6 +177,30 @@ class RoomsController extends BaseController
             $dataResponse['data'] = $data;
             DB::commit();
         } catch (RoomException $e) {
+            Log::debug($e);
+            DB::rollback();
+        }
+
+        return response()->json($dataResponse);
+    }
+
+    /**
+     * Quit the specified room.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function quit(Request $request)
+    {
+        $dataResponse['status'] = 500; //System error
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
+            if ($this->repository->quitRoom($input)) {
+                $dataResponse['status'] = 200; //OK
+                DB::commit();
+            }
+        } catch (Exception $e) {
             Log::debug($e);
             DB::rollback();
         }

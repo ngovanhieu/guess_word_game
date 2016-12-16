@@ -225,4 +225,65 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $data;
     }
+
+    /**
+     * Quit a room
+     *
+     * @param var $id
+     *
+     * @return mixed
+     */
+    public function quitRoom($input)
+    {   
+        $id = $input['id'];
+        $data['room'] = $this->model->findOrFail($id);
+        $data['info'] = $data['room']->results->first();
+
+        //If there is not any result, throw exception
+        if ($data['room']->status == config('room.status.playing') || $data['room']->status == config('room.status.closed')) {
+            throw new Exception;
+        }
+
+        //If there is not any result, throw exception
+        if (!$data['info']) {
+            throw new Exception;
+        }
+
+        //If user is not in the room 
+        if (!$data['info']->isJoining()) {
+            throw new Exception;
+        }
+
+        //Update player slots
+        if ($data['info']->isDrawer()) {
+            $data['info']->drawer_id = null;
+        } else {
+            $data['info']->guesser_id = null;
+        }
+
+        if (!$data['info']->save()) {
+            throw new Exception;
+        }
+
+        //Remove ready state
+        $room['state'] = $data['room']->state ^ config('room.state.player-1-ready');
+
+        //Update join state of the room
+        $room['state'] = 
+            $data['room']->state & config('room.state.player-1-joined') && 
+            $data['room']->state & config('room.state.player-2-joined') ? 
+            $room['state'] ^ config('room.state.player-2-joined') :
+            $room['state'] ^ config('room.state.player-1-joined')
+        ;
+
+        //If a player quit, minus one status of the room
+        $room['status'] = --$data['room']->status;
+        $data['room']->forceFill($room);
+
+        if (!$data['room']->save()) {
+            throw new Exception;
+        }
+
+        return true;
+    }
 }

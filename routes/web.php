@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
     Route::get('rooms/join/{id}', 'RoomsController@join')->name('rooms.join');
     Route::post('rooms/refresh', 'RoomsController@refresh')->name('rooms.refresh');
     Route::post('rooms/ready', 'RoomsController@updateReadyState')->name('rooms.ready');
+    Route::post('rooms/quit', 'RoomsController@quit')->name('rooms.quit');
     Route::resource('rooms', 'RoomsController', ['only' => [
         'index', 'store', 'show',
     ]]);

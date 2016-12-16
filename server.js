@@ -51,4 +51,9 @@ io.sockets.on('connection', function(socket) {
             io.sockets.to(roomId).emit('begin-play', JSON.parse(body));
         });
     });
+
+    //When a player quit the room, we'll update the room
+    socket.on('quit', function () {
+        io.sockets.to(roomId).emit('a-player-quit');
+    });
 });
