@@ -167,6 +167,23 @@
                 showError();
             }
         });
+
+        //Quit button
+        $(document).on('click','#quit-button', function () {
+            var url = laroute.route('rooms.quit');
+
+            $.post(url, {id: roomId}, function (response) {
+                if (response.status == 200) {
+                    socket.emit('quit');
+                    window.location.replace(laroute.route('rooms.index'));
+                } else {
+                    showError();
+                }
+            });
+        });
+
+        //Get new players data when a player quiting the room
+        socket.on('a-player-quit', eval(userRole + '.refresh'));
     }
 
     var timer = function() {
