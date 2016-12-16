@@ -13,9 +13,11 @@ class RoomInfoPanel extends AbstractWidget
     public function run($status)
     {
         if ($status == config('room.status.full') || $status == config('room.status.waiting')) {
-        	return view('front-end.room.info-panel.quit');
+            return view('front-end.room.info-panel.quit');
         } elseif ($status == config('room.status.playing')) {
-        	return view('front-end.room.info-panel.playing');
+            return view('front-end.room.info-panel.playing');
         }
+
+        return '';
     }
 }
