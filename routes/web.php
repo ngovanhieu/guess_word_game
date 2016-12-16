@@ -32,6 +32,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only'=> [
         'show', 'update', 'edit',
     ]]);
+    Route::post('users/chat', 'ChatsController@store')->name('users.chat');
 });
 
 //Admin features

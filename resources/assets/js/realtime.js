@@ -184,6 +184,55 @@
 
         //Get new players data when a player quiting the room
         socket.on('a-player-quit', eval(userRole + '.refresh'));
+
+        //ajax send message info to controller
+        $('#target').submit(function( event ) {
+            event.preventDefault();
+            var url = laroute.route('users.chat');
+            var chatContent = $('#content-chat').val();
+            $('#content-chat').val('');
+                $.ajax({
+                    method: 'POST',
+                    url: url,
+                    data: {room_id: roomId, content: chatContent},
+                    dataType: 'json',
+                    success: function (data) {
+                        data.name = userName;
+                        data.avatar = avatarUser;
+                        socket.emit('user-send-message', data);
+                    }
+                });
+            });
+
+            //Convert to html
+            var encodeHtmlEntity = function(str) {
+                var buf = [];
+                for (var i = str.length - 1; i >= 0; i--) {
+                    buf.unshift(['&#', str[i].charCodeAt(), ';'].join(''));
+                }
+                return buf.join('');
+            };
+
+            //append new message to chat box
+            socket.on('get-new-message', function(data) {
+                var chat = $("#chat");
+                chat.append (
+                    '<li class="' + (authUserID == data.sender_id ?  'right' : 'left')+ ' clearfix">\
+                        <span class="chat-img pull-right">\
+                            <img src=" '+data.avatar+' " class="chat-icon"/>\
+                        </span>\
+                        <div class="chat-body clearfix">\
+                            <div class="header">\
+                                <small class=" text-muted chat-time"><span class="glyphicon"></span></small>\
+                                    <strong class="pull-right primary-font chat-name">'+data.name+'</strong>\
+                            </div>\
+                            <p class="pull-right chat-content">'
+                                +encodeHtmlEntity(data.content)+
+                            '</p>\
+                        </div>\
+                    </li>'
+                ).parent().animate({ scrollTop: chat.height() }, 300); // scroll to bottom after load new message
+            });
     }
 
     var timer = function() {

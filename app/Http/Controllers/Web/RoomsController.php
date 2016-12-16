@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\RoomRepositoryInterface as RoomRepository;
+use App\Repositories\Contracts\MessageRepositoryInterface as MessageRepository;
 use App\Http\Requests\StoreRoom;
 use Exception;
 use App\Exceptions\RoomException;
@@ -13,10 +14,11 @@ use DB;
 
 class RoomsController extends BaseController
 {
-    public function __construct(RoomRepository $roomRepository) {
+    public function __construct(RoomRepository $roomRepository, MessageRepository $messageRepository) {
         parent::__construct($roomRepository);
         $this->viewName = 'room';
         $this->viewData['title'] = trans('front-end/room.title');
+        $this->messageRepository = $messageRepository;
     }
 
     /**
@@ -71,6 +73,7 @@ class RoomsController extends BaseController
             return redirect()->action('Web\RoomsController@index')
                 ->withErrors($e->getMessage());
         }
+        $this->viewData['messages'] = $this->messageRepository->getMessagesOnRoom($id)->get();
 
         return $this->viewRender();
     }

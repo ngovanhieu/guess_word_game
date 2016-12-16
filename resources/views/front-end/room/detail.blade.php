@@ -1,5 +1,9 @@
 @extends('front-end.master')
+@push('style')
+    {!! Html::style(elixir('css/chat.css')) !!}
+@endpush
 @section('subview')
+@include('front-end.room.includes.chat')
     <div class="alert alert-danger ajax-error"></div>
     <div class="col-md-4">
         <div class="panel panel-default room-list">
@@ -125,5 +129,8 @@
         var playingStatus = "{{ config('room.status.playing') }}";
         var fullStatus = "{{ config('room.status.full') }}";
         var errorMessage = "{{ trans('front-end/room.error-message') }}"
+        var authUserID = "{{ Auth::user()->id }}";
+        var userName = "{{ Auth::user()->name }}";
+        var avatarUser = "{{ Auth::user()->avatar_url ? asset((Auth::user()->avatar_url)) : asset(config('user.default-avatar')) }}";
     </script>
 @endpush
