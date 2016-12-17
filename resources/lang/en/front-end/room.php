@@ -5,6 +5,7 @@ return [
     'empty' => 'There is no available rooms, You can create the first one.',
     'list' => 'List',
     'leaderboard' =>  'Leaderboard',
+    'chat-box' => 'Chat box',
     'buttons' => [
         'create' => 'Create Room',
         'join' => 'Join Room',
@@ -15,6 +16,7 @@ return [
         'new-round' => 'New Round',
         'finish' => 'Finish',
         'playing' => 'Playing',
+        'send-message' => 'Send',
     ],
     'description' => 'Description',
     'status' => [

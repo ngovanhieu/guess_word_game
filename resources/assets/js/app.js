@@ -92,4 +92,8 @@ $(document).ready(function() {
     if (roomStatus == 3) {
         $('.is-ready').html('<button class="btn btn-success btn-sm pull-right">' + playingButton + '</button>');
     }
+
+    if ($("#chat-message").length) {
+        $("#chat-message").scrollTop($("#chat").height());
+    }
 })
