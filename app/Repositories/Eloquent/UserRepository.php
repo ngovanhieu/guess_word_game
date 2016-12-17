@@ -16,4 +16,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return 'App\Models\User';
     }
+
+    //search user by id, name, email
+    public function searchUser($input)
+    {
+        $query = $this->model->newQuery();
+
+        if ($input['key-word'] != '') {
+            $query->where(function($query) use ($input) {
+                $query->where('id', 'like', '%' . $input['key-word'] . '%')
+                    ->orWhere('name', 'like', '%' . $input['key-word'] . '%')
+                    ->orWhere('email', 'like', '%' . $input['key-word'] . '%');
+            });
+        }
+
+        return $query;
+    }
 }

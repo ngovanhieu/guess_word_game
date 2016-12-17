@@ -20,9 +20,10 @@ class UsersController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->viewData['users'] = $this->repository->paginate();
+        $input = $request->only('key-word');
+        $this->viewData['users'] = $this->repository->searchUser($input)->sortable()->paginate();
 
         return view('admin.users.index', $this->viewData);
     }
