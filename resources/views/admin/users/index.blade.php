@@ -4,15 +4,30 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>{{ trans('admin/users/index.labels.list-user') }}</h3>
+            {!! Form::open(['action' => ['Admin\UsersController@index'], 'method' =>  'GET']) !!}
+                <div class="col-sm-5">
+                    {!! Form::text('key-word', $keyWord, ['class' => 'form-control',
+                        'placeholder' => trans('admin/users/index.placeholder.search')]) !!}
+                </div>
+                {!! Form::submit(trans('admin/users/index.buttons.search'), ['class' => 'btn btn-success']) !!} 
+            {!! Form::close() !!}
         </div>
         <div class="panel-body">
             @if (count($users))
             <table class="table table-bordered">
                 <tr>
-                    <td>{{ trans('admin/users/index.labels.id') }}</td>
-                    <td>{{ trans('admin/users/index.labels.name') }}</td>
-                    <td>{{ trans('admin/users/index.labels.email-address') }}</td>
-                    <td>{{ trans('admin/users/index.labels.role') }}</td>
+                    <td>
+                        @sortablelink('id', trans('admin/users/index.labels.id'))
+                    </td>
+                    <td>
+                        @sortablelink('name', trans('admin/users/index.labels.name'))
+                    </td>
+                    <td>
+                        {{ trans('admin/users/index.labels.email-address') }}
+                    </td>
+                    <td>
+                        @sortablelink('role', trans('admin/users/index.labels.role'))
+                    </td>
                     <td>{{ trans('admin/users/index.labels.action') }}</td>
                 </tr>
                 @foreach ($users as $user)
@@ -32,7 +47,7 @@
                             <a href="{{ action('Admin\UsersController@edit', ['id' => $user->id]) }}" class="btn btn-warning">
                                 {{ trans('admin/users/index.buttons.edit') }}
                             </a>
-                            {!! Form::submit(trans('admin/users/index.buttons.delete'), ['class' => 'btn btn-danger']) !!}
+                            {!! Form::submit(trans('admin/users/index.buttons.delete'), ['class' => 'btn btn-danger confirm']) !!}
                         </div>
                         {!! Form::close() !!}
                     @endif
@@ -40,7 +55,7 @@
                 </tr>
                 @endforeach
             </table>
-            {!! $users->links() !!}
+            {!! $users->appends(request()->input())->links() !!}
             @else
             <div class="alert alert-warning" role="alert">
                 {{ trans('admin/users/index.labels.empty-list') }}
@@ -49,3 +64,8 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script type="text/javascript">
+        var confirmation = "{{trans('admin/users/index.delete.confirm')}}";
+    </script>
+@endpush

@@ -46,5 +46,6 @@ elixir(mix => {
             'node_modules/wPaint/plugins/',
         ], 'public/plugins')
         .sass('error.scss')
+        .sass('chat.scss')
         .webpack('app.js');
 });

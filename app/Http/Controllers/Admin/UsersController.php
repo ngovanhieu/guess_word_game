@@ -20,9 +20,12 @@ class UsersController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->viewData['users'] = $this->repository->paginate();
+        $keyWord = $request->only('key-word');
+        $this->viewData['users'] = $this->repository->searchUser($keyWord)->sortable()->paginate();
+        //send back filter choice
+        $this->viewData['keyWord'] = $keyWord['key-word'];
 
         return view('admin.users.index', $this->viewData);
     }
@@ -135,6 +138,19 @@ class UsersController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $user = $this->repository->find($id);
+        try {
+            if ($user->isMember()) {
+                $this->repository->delete($id);
+
+                return redirect()->action('Admin\UsersController@index')
+                    ->with('status', trans('admin/users/index.delete.success'));
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+        }
+
+        return redirect()->action('Admin\UsersController@index')
+            ->withErrors(trans('admin/users/index.delete.permission'));
     }
 }
