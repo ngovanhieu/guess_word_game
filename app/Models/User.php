@@ -9,8 +9,7 @@ use Hash;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
-    use Notifiable;
+    use SoftDeletes, Notifiable;
 
     /**
      * The attributes that should be mutated to dates.
@@ -96,5 +95,12 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute()
     {
         return $this->avatar ? config('user.avatar.upload_path') . $this->id . '/' . $this->avatar : null;
+    }
+
+    public function delete()
+    {
+        $this->messages()->delete();
+
+        return parent::delete();
     }
 }

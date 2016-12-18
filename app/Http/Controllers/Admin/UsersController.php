@@ -135,6 +135,22 @@ class UsersController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $user = $this->repository->find($id);
+        try {
+            if ($user->isMember()) {
+                $this->repository->delete($id);
+
+                return redirect()->action('Admin\UsersController@index')
+                    ->with('status', trans('admin/users/index.delete.success'));
+            }
+            
+            return redirect()->action('Admin\UsersController@index')
+                ->withErrors(trans('admin/users/index.delete.permission'));
+        } catch (Exception $e) {
+            Log::error($e);
+
+            return redirect()->action('Admin\UsersController@index')
+                ->withErrors(trans('admin/users/index.delete.permission'));
+        }
     }
 }

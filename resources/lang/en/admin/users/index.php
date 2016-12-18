@@ -19,4 +19,9 @@ return [
         'failed' => 'Create failed!',
         'success' => 'Create successfully new user',
     ],
+    'delete' => [
+        'success' => 'Delete successfully!',
+        'failed' => 'Delete failed!',
+        'permission' => 'You can not delete this user!',
+    ]
 ];

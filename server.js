@@ -59,5 +59,5 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('user-send-message', function(data) {
         io.sockets.to(roomId).emit('get-new-message', data);
-    })
+    });
 });
