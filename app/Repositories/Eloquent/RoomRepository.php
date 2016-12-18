@@ -317,4 +317,40 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $data;
     }
+    
+    /**
+     * Post an answer
+     *
+     * @param array $input
+     *
+     * @return mixed
+     */
+    public function postAnswer(array $input)
+    {   
+        $id = $input['id'];
+        $answer = $input['answer'];
+        $room = $this->model->findOrFail($id);
+        if ($room->status != config('room.status.playing')) {
+            throw new Exception;
+        }
+
+        $currentRound = $room->results->last();
+
+        //Update result
+        $currentRound->fill([
+            'answer' => $answer,
+            'is_correct' => $currentRound->word->content == $answer
+        ]);
+
+        if (!$currentRound->save()) {
+            throw new Exception;
+        }
+
+        $data = [
+            'room' => $room,
+            'current_round' =>  $currentRound,
+        ];
+
+        return $data;
+    }
 }
