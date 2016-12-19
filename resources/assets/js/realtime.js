@@ -287,10 +287,27 @@
         socket.on('render-result', function () {
             location.reload();
         });
+
+        //New round
+        $(document).on('click', '#new-round', function () {
+            var url = laroute.route('rooms.new-round');
+            $.post(url, {id: roomId}, function (response) {
+                if (response.status == 200) {
+                    socket.emit('new-round');
+                } else {
+                    showError();
+                }
+            });
+        });
+
+        //Get new round
+        socket.on('get-new-round', function () {
+            location.reload();
+        });
     }
 
     var timer = function() {
-        if (window.jQuery && window.jQuery.ui) {
+        if (window.jQuery && window.jQuery.ui && typeof roomStatus != 'undefined') {
             runMyCode(window.jQuery);
         } else {
             window.setTimeout(timer, 100);
