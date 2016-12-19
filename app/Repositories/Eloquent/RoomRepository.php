@@ -385,4 +385,29 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return true;
     }
+
+    /**
+     * Finish the game
+     *
+     * @param array $input
+     *
+     * @return mixed
+     */
+    public function finishRoom(array $input)
+    {   
+        $id = $input['id'];
+        $room = $this->model->findOrFail($id);
+
+        if ($room->status != config('room.status.playing')) {
+            throw new Exception;
+        }
+
+        $room->status = config('room.status.closed');
+
+        if (!$room->save()) {
+            throw new Exception;
+        }
+
+        return true;
+    }
 }

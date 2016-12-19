@@ -75,4 +75,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('new-round', function () {
         io.sockets.to(roomId).emit('get-new-round');
     });
+
+    //When the a player finish the game, we'll close the room
+    socket.on('finish', function () {
+        io.sockets.to(roomId).emit('close-room');
+    });
 });

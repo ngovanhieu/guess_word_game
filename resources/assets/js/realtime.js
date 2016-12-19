@@ -304,6 +304,23 @@
         socket.on('get-new-round', function () {
             location.reload();
         });
+                
+        //When a player click finish, we'll close the room
+        $(document).on('click', '#finish-button', function () {
+            var url = laroute.route('rooms.finish');
+            $.post(url, {id: roomId}, function (response) {
+                if (response.status == 200) {
+                    socket.emit('finish');
+                } else {
+                    showError();
+                }
+            });
+        });
+
+        //After closing room, we need to refresh page of players
+        socket.on('close-room', function () {
+            location.reload();
+        });
     }
 
     var timer = function() {

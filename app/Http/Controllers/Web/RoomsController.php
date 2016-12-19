@@ -322,7 +322,27 @@ class RoomsController extends BaseController
             if ($this->repository->createNewRound($input)) {
                 $dataResponse['status'] = 200; //OK
             }
+        } catch (Exception $e) {
+            Log::debug($e);
+        }
 
+        return response()->json($dataResponse);
+    }
+
+    /**
+     * Finish the game in the specified room.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postFinish(Request $request)
+    {
+        $dataResponse['status'] = 500; //Unspecified error
+        try {
+            $input = $request->only('id');
+            if($this->repository->finishRoom($input)) {
+                $dataResponse['status'] = 200;
+            }
         } catch (Exception $e) {
             Log::debug($e);
         }
