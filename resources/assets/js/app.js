@@ -96,4 +96,9 @@ $(document).ready(function() {
     if ($("#chat-message").length) {
         $("#chat-message").scrollTop($("#chat").height());
     }
+
+    //Prompt confirm dialog
+    $(".confirm").on('click', function () {
+        return confirm(confirmation);
+    });
 })

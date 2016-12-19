@@ -6,11 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hash;
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
-    use Notifiable;
+    use SoftDeletes, Notifiable, Sortable;
 
     /**
      * The attributes that should be mutated to dates.
@@ -26,6 +26,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'avatar', 'password', 'role',
+    ];
+
+    public $sortable = [
+        'id',
+        'name',
+        'role',
     ];
 
     /**
@@ -96,5 +102,12 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute()
     {
         return $this->avatar ? config('user.avatar.upload_path') . $this->id . '/' . $this->avatar : null;
+    }
+
+    public function delete()
+    {
+        $this->messages()->delete();
+
+        return parent::delete();
     }
 }
